@@ -16,7 +16,6 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 // middleware
-
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('shhhh, very secret'));
