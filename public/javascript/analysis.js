@@ -5,51 +5,52 @@ $(document).ready(function(){
     });
   });
 
+  //Rgraph
   // Create the Gantt chart. Note the (October 2012) change in how the events data is specified.
   // You now give the data as an argument to the constructor.
-  var gantt = new RGraph.Gantt('rgraph', [
-    [31, 28, null, 'Richard'],
-    [31, 28, null, 'Fred'],
-    [59, 14, null, 'Barney'],
-    [59, 21, null, 'Gloria'],
-    [59, 31, null, 'Paul'],
-    [80, 21, null, 'Harry'],
-    [94, 7, null, 'Shane'],
-    [120, 14, null, 'Barry'],
-    [130, 14, null, 'Cynthia'],
-    [211, 61, null, 'Graham'],
-    [334, 31, null, 'Paul']
-  ])
+  /*var gantt = new RGraph.Gantt('rgraph', [
+   [31, 28, null, 'Richard'],
+   [31, 28, null, 'Fred'],
+   [59, 14, null, 'Barney'],
+   [59, 21, null, 'Gloria'],
+   [59, 31, null, 'Paul'],
+   [80, 21, null, 'Harry'],
+   [94, 7, null, 'Shane'],
+   [120, 14, null, 'Barry'],
+   [130, 14, null, 'Cynthia'],
+   [211, 61, null, 'Graham'],
+   [334, 31, null, 'Paul']
+   ])
 
-  // Configure the chart to appear as you want.
-        .Set('xmax', 365)
-        .Set('gutter.left', 75)
-        .Set('labels', ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
-        .Set('title', 'Holiday schedule for Xyz Ltd')
-        .Set('defaultcolor', 'rgba(255,0,0,1)')
-        .Set('tooltips', ["<b>Richard</b><br />Richard is going on holiday to Malta.<br />He'll be away for 28 days.",
-                          "<b>Fred</b><br />Fred is also going away for 28 days",
-                          "<b>Barney</b><br />Barney is off work for two weeks",
-                          "<b>Gloria</b><br />Gloria is off for 3 weeks",
-                          "<b>Paul</b><br /> Away for 31 days",
-                          "<b>Harry</b><br />Away for three weeks",
-                          "<b>Shane</b><br />Away for one week",
-                          "<b>Barry</b><br />Away for two weeks",
-                          "<b>Cynthia</b><br />Away for two weeks",
-                          "<b>Graham</b><br />Away for August and September",
-                          "<b>Paul</b><br />Away for 31 days"])
+   // Configure the chart to appear as you want.
+   .Set('xmax', 365)
+   .Set('gutter.left', 75)
+   .Set('labels', ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+   .Set('title', 'Holiday schedule for Xyz Ltd')
+   .Set('defaultcolor', 'rgba(255,0,0,1)')
+   .Set('tooltips', ["<b>Richard</b><br />Richard is going on holiday to Malta.<br />He'll be away for 28 days.",
+   "<b>Fred</b><br />Fred is also going away for 28 days",
+   "<b>Barney</b><br />Barney is off work for two weeks",
+   "<b>Gloria</b><br />Gloria is off for 3 weeks",
+   "<b>Paul</b><br /> Away for 31 days",
+   "<b>Harry</b><br />Away for three weeks",
+   "<b>Shane</b><br />Away for one week",
+   "<b>Barry</b><br />Away for two weeks",
+   "<b>Cynthia</b><br />Away for two weeks",
+   "<b>Graham</b><br />Away for August and September",
+   "<b>Paul</b><br />Away for 31 days"])
 
-        .Set('vbars', [
-          [0, 31, 'rgba(192,255,192,0.5)'],
-          [59, 31, 'rgba(192,255,192,0.5)'],
-          [120, 31, 'rgba(192,255,192,0.5)'],
-          [181, 31, 'rgba(192,255,192,0.5)'],
-          [243, 30, 'rgba(192,255,192,0.5)'],
-          [304, 30, 'rgba(192,255,192,0.5)']
-        ])
+   .Set('vbars', [
+   [0, 31, 'rgba(192,255,192,0.5)'],
+   [59, 31, 'rgba(192,255,192,0.5)'],
+   [120, 31, 'rgba(192,255,192,0.5)'],
+   [181, 31, 'rgba(192,255,192,0.5)'],
+   [243, 30, 'rgba(192,255,192,0.5)'],
+   [304, 30, 'rgba(192,255,192,0.5)']
+   ])
 
-  // Now call the .Draw() method to draw the chart.
-        .Draw();
+   // Now call the .Draw() method to draw the chart.
+   .Draw();*/
 
   //Chart.js
   /*  var lineChartData = {
@@ -259,6 +260,64 @@ $(document).ready(function(){
    });
 
    chart.render();*/
+
+  //Flotr2 timeline
+  (function basic_timeline(container) {
+
+    var
+    d1        = [[1, 4, 2]],
+    d2        = [[3, 4, 0]],
+    d3        = [[5, 4, 2], [5, 2, 3.3]],
+    d4        = [[7, 4, 2]],
+    d5        = [[9, 4, 2]],
+    data      = [],
+    timeline  = { show : true, barWidth : .5 },
+    markers   = [],
+    labels    = ['2014-01-05 Sleep', '2014-01-04 Eat', '2014-01-03 Pee & Poo', '2014-01-02', '2014-01-01'],
+    i, graph, point;
+
+    // Timeline
+    Flotr._.each([d1, d2, d3, d4, d5], function (d) {
+      data.push({
+        data : d,
+        timeline : Flotr._.clone(timeline)
+      });
+    });
+
+    // Markers
+    Flotr._.each([d1, d2, d3, d4, d5], function (d) {
+      point = d[0];
+      markers.push([point[0], point[1]]);
+    });
+    data.push({
+      data: markers,
+      markers: {
+        show: true,
+        position: 'rm',
+        fontSize: 11,
+        labelFormatter : function (o) { return labels[o.index]; }
+      }
+    });
+
+    // Draw Graph
+    graph = Flotr.draw(container, data, {
+      xaxis: {
+        noTicks: 3,
+        tickFormatter: function (x) {
+          var
+          x = parseInt(x),
+          months = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '23:59'];
+          return months[(x-1)%12];
+        }
+      },
+      yaxis: {
+        showLabels : false
+      },
+      grid: {
+        horizontalLines : false
+      }
+    });
+  })(document.getElementById("flotr2-timeline"));
 });
 
 $(function () {
